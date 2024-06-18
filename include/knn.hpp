@@ -11,15 +11,18 @@ class KNN_CLASSIFIER
 private:
     int kNeighbours;
     int powerMinkowskiDistance = 2;
-    TARGET_DATA_TYPE targetClass;
+    TARGET_DATA_TYPE targetClassName;
     std::vector<std ::vector<TRAIN_DATA_TYPE>> traindata;
     std::vector<TARGET_DATA_TYPE> targetData;
     template <typename TYPE>
     bool validateTrainDataType();
-    TARGET_DATA_TYPE findClass(MinHeapPriorityQueue);
+    TARGET_DATA_TYPE findClass(MinHeapPriorityQueue &);
+    std::unordered_map<TARGET_DATA_TYPE, int> getClassCount(MinHeapPriorityQueue &);
+    TARGET_DATA_TYPE getMaxClass(std::unordered_map<TARGET_DATA_TYPE, int> &);
+    TARGET_DATA_TYPE targetClass();
 
 public:
-    KNN_CLASSIFIER(const std::vector<std::vector<TRAIN_DATA_TYPE>> data, const std::vector<TARGET_DATA_TYPE> targetClass, const int kNeighbours);
+    KNN_CLASSIFIER(const std::vector<std::vector<TRAIN_DATA_TYPE>>, const std::vector<TARGET_DATA_TYPE>, const int);
     template <typename TEST_DATA_TYPE>
     void run(std::vector<TEST_DATA_TYPE>);
 

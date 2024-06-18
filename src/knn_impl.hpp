@@ -45,7 +45,7 @@ void KNN_CLASSIFIER<TRAIN_DATA_TYPE, TARGET_DATA_TYPE>::run(std::vector<TEST_DAT
     std::cerr << "\033[95mInformation:\033[0m In case of tie between multiple classes, random class will be selected as the target class\n";
 
     MinHeapPriorityQueue distances = calculateDistances(testData);
-    this->targetClass = findClass(distances);
+    this->targetClassName = findClass(distances);
 }
 
 template <typename TRAIN_DATA_TYPE, typename TARGET_DATA_TYPE>
@@ -68,27 +68,45 @@ MinHeapPriorityQueue KNN_CLASSIFIER<TRAIN_DATA_TYPE, TARGET_DATA_TYPE>::calculat
 }
 
 template <typename TRAIN_DATA_TYPE, typename TARGET_DATA_TYPE>
-TARGET_DATA_TYPE KNN_CLASSIFIER<TRAIN_DATA_TYPE, TARGET_DATA_TYPE>::findClass(MinHeapPriorityQueue distances)
+TARGET_DATA_TYPE KNN_CLASSIFIER<TRAIN_DATA_TYPE, TARGET_DATA_TYPE>::findClass(MinHeapPriorityQueue &distances)
+{
+    std::unordered_map<TARGET_DATA_TYPE, int> classCount = this->getClassCount(distances);
+    TARGET_DATA_TYPE maxClass = this->getmaxClass(classCount);
+    return maxClass;
+}
+
+template <typename TRAIN_DATA_TYPE, typename TARGET_DATA_TYPE>
+std::unordered_map<TARGET_DATA_TYPE, int> KNN_CLASSIFIER<TRAIN_DATA_TYPE, TARGET_DATA_TYPE>::getClassCount(MinHeapPriorityQueue &distances)
 {
     std::unordered_map<TARGET_DATA_TYPE, int> classCount;
-
     for (int i = 0; i < this->kNeighbours && !distances.empty(); i++)
     {
         classCount[distances.top().second]++;
         distances.pop();
     }
+    return classCount;
+}
 
+template <typename TRAIN_DATA_TYPE, typename TARGET_DATA_TYPE>
+TARGET_DATA_TYPE KNN_CLASSIFIER<TRAIN_DATA_TYPE, TARGET_DATA_TYPE>::getMaxClass(std::unordered_map<TARGET_DATA_TYPE, int> &classCount)
+{
     TARGET_DATA_TYPE maxClass;
     int maxCount = 0;
     for (auto classCountPair : classCount)
     {
-        if (classCountPair.second > maxCount)
-        {
-            maxCount = classCountPair.second;
-            maxClass = classCountPair.first;
-        }
+        if (classCountPair.second < maxCount)
+            continue;
+
+        maxCount = classCountPair.second;
+        maxClass = classCountPair.first;
     }
     return maxClass;
+}
+
+template <typename TRAIN_DATA_TYPE, typename TARGET_DATA_TYPE>
+TARGET_DATA_TYPE KNN_CLASSIFIER<TRAIN_DATA_TYPE, TARGET_DATA_TYPE>::targetClass()
+{
+    return this->targetClassName;
 }
 
 #endif
