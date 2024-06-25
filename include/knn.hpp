@@ -1,9 +1,9 @@
-#ifndef __REQURIED_HEADERS_FOR_KNN_
+#ifndef __REQ_H_CPP_ML_LIB_
 #include "./src/requried_header.hpp"
 #endif
 
-#ifndef __KNN_ALGRTM_H_
-#define __KNN_ALGRTM_H_
+#ifndef __KNN_ALGRTM_H_CPP_ML_LIB_
+#define __KNN_ALGRTM_H_CPP_ML_LIB_
 
 template <typename TRAIN_DATA_TYPE, typename TARGET_DATA_TYPE>
 class KNN_CLASSIFIER

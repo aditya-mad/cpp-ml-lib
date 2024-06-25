@@ -1,5 +1,5 @@
-#ifndef __REQURIED_HEADERS_FOR_KNN_
-#define __REQURIED_HEADERS_FOR_KNN_
+#ifndef __REQ_H_CPP_ML_LIB_
+#define __REQ_H_CPP_ML_LIB_
 
 #include <vector>
 #include <iostream>

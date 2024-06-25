@@ -1,10 +1,10 @@
 # Machine Learning Algorithms in C++
 
-This repository contains implementations of various machine learning algorithms in C++.
+This repository contains implementations of various machine learning algorithms in C++. With possibility of releasing an Windows App for it
 
 ## Implemented Algorithms
 
-1. **KNN (In Progress)**: The K-Nearest Neighbors algorithm is currently being implemented, but it's not yet complete.
+1. **KNN (In Progress)**: The K-Nearest Neighbors algorithm is currently being implemented. (Work In Progress)
 
 ## Directory Structure
 

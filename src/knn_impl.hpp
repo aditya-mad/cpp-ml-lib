@@ -1,7 +1,7 @@
-#ifndef __KNN_IMPL_H_
-#define __KNN_IMPL_H_
+#ifndef __KNN_IMPL_H_CPP_ML_LIB_
+#define __KNN_IMPL_H_CPP_ML_LIB_
 
-#ifndef __KNN_ALGRTM_H_
+#ifndef __KNN_ALGRTM_H_CPP_ML_LIB_
 #include "./include/knn.hpp"
 #endif
 
