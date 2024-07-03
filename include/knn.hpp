@@ -25,6 +25,7 @@ public:
     KNN_CLASSIFIER(const std::vector<std::vector<TRAIN_DATA_TYPE>>, const std::vector<TARGET_DATA_TYPE>, const int);
     template <typename TEST_DATA_TYPE>
     void run(std::vector<TEST_DATA_TYPE>);
+    bool read(std::string);
 
     MinHeapPriorityQueue calculateDistances(const std::vector<TRAIN_DATA_TYPE> &);
 };

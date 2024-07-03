@@ -11,7 +11,8 @@ class FileReading
 private:
     std::string filePath;
 
-protected:
-    void readFile();
+public:
+    std::pair<std::vector<std::vector<TRAIN_DATA_TYPE>>, std::vector<TARGET_DATA_TYPE>> readFile();
 };
+
 #endif

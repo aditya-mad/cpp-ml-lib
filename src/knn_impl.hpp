@@ -5,6 +5,8 @@
 #include "./include/knn.hpp"
 #endif
 
+#include "./include/file_read.hpp"
+
 template <typename TRAIN_DATA_TYPE, typename TARGET_DATA_TYPE>
 template <typename TYPE>
 bool KNN_CLASSIFIER<TRAIN_DATA_TYPE, TARGET_DATA_TYPE>::validateTrainDataType()
@@ -107,6 +109,22 @@ template <typename TRAIN_DATA_TYPE, typename TARGET_DATA_TYPE>
 TARGET_DATA_TYPE KNN_CLASSIFIER<TRAIN_DATA_TYPE, TARGET_DATA_TYPE>::targetClass()
 {
     return this->targetClassName;
+}
+
+template <typename TRAIN_DATA_TYPE, typename TARGET_DATA_TYPE>
+bool KNN_CLASSIFIER<TRAIN_DATA_TYPE, TARGET_DATA_TYPE>::read(std::string fileName)
+{
+    try
+    {
+        FileReading<TRAIN_DATA_TYPE, TARGET_DATA_TYPE> *fileReader = new FileReading<TRAIN_DATA_TYPE, TARGET_DATA_TYPE>();
+        std::tie(this->trainData, this->targetData) = fileReader->readFile();
+        delete fileReader;
+    }
+    catch (const std::exception &e)
+    {
+        return false;
+    }
+    return true;
 }
 
 #endif

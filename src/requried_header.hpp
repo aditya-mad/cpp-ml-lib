@@ -7,6 +7,9 @@
 #include <queue>
 #include <cmath>
 #include <unordered_map>
+#include <limits>
+#include <string>
+#include <tuple>
 
 #define MinHeapPriorityQueue std::priority_queue<std::pair<long double, TARGET_DATA_TYPE>, std::vector<std::pair<long double, TARGET_DATA_TYPE>>, std::greater<std::pair<long double, TARGET_DATA_TYPE>>>
 
