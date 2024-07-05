@@ -127,4 +127,21 @@ bool KNN_CLASSIFIER<TRAIN_DATA_TYPE, TARGET_DATA_TYPE>::read(std::string fileNam
     return true;
 }
 
+template <typename TRAIN_DATA_TYPE, typename TARGET_DATA_TYPE>
+void KNN_CLASSIFIER<TRAIN_DATA_TYPE, TARGET_DATA_TYPE>::fitTestDataDimensions()
+{
+    int maxRowSize = *std::max_element(this->traindata.begin(), this->traindata.end(),
+                                       [](const auto &a, const auto &b)
+                                       { return a.size() < b.size(); });
+
+    for (std::vector<TRAIN_DATA_TYPE> &row : this->traindata)
+    {
+        if (row.size() == maxRowSize)
+            continue;
+
+        for (int i = row.size(); i < maxRowSize; i++)
+            row.push_back(0);
+    }
+}
+
 #endif
