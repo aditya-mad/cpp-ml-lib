@@ -11,6 +11,7 @@ class KNN_CLASSIFIER
 private:
     int kNeighbours;
     int powerMinkowskiDistance = 2;
+    bool isSingleTest = true;
 
     TARGET_DATA_TYPE targetClassName;
 
@@ -19,9 +20,11 @@ private:
 
     template <typename TYPE>
     bool validateTrainDataType();
+    template <typename TYPE>
+    bool validateTestDataType(TYPE);
 
     void fitTestDataDimensions();
-
+    void printWarnings();
     TARGET_DATA_TYPE targetClass();
     TARGET_DATA_TYPE findClass(MinHeapPriorityQueue &);
     TARGET_DATA_TYPE getMaxClass(std::unordered_map<TARGET_DATA_TYPE, int> &);
@@ -32,6 +35,8 @@ public:
     KNN_CLASSIFIER(const std::vector<std::vector<TRAIN_DATA_TYPE>>, const std::vector<TARGET_DATA_TYPE>, const int);
     template <typename TEST_DATA_TYPE>
     void run(std::vector<TEST_DATA_TYPE>);
+    template <typename TEST_DATA_TYPE>
+    void run(std::vector<std::vector<TEST_DATA_TYPE>>);
     bool read(std::string);
 
     MinHeapPriorityQueue calculateDistances(const std::vector<TRAIN_DATA_TYPE> &);

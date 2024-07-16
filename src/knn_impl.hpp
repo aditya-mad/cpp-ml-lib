@@ -39,15 +39,40 @@ template <typename TRAIN_DATA_TYPE, typename TARGET_DATA_TYPE>
 template <typename TEST_DATA_TYPE>
 void KNN_CLASSIFIER<TRAIN_DATA_TYPE, TARGET_DATA_TYPE>::run(std::vector<TEST_DATA_TYPE> testData)
 {
+    if (testData.empty())
+    {
+        cout << "Train Data is Empty";
+        // ------------------------------------------------ insert empty
+        return;
+    }
+
+    if (this->isSingleTest)
+        validateTestDataType(testData[0]);
+
+    MinHeapPriorityQueue distances = calculateDistances(testData);
+    this->targetClassName = findClass(distances);
+    // ----------------------------------------------------- push to vector
+}
+
+template <typename TRAIN_DATA_TYPE, typename TARGET_DATA_TYPE>
+template <typename TEST_DATA_TYPE>
+void KNN_CLASSIFIER<TRAIN_DATA_TYPE, TARGET_DATA_TYPE>::run(std::vector<std::vector<TEST_DATA_TYPE>> testData)
+{
+    // ---------------------- insert into vector and handle empty cases
+    this->isSingleTest = false;
+    MinHeapPriorityQueue distances = calculateDistances(testData);
+    this->targetClassName = findClass(distances);
+}
+
+template <typename TRAIN_DATA_TYPE, typename TARGET_DATA_TYPE>
+template <typename TYPE>
+bool KNN_CLASSIFIER<TRAIN_DATA_TYPE, TARGET_DATA_TYPE>::validateTestDataType(TYPE)
+{
     if (std::is_same(TEST_DATA_TYPE, TRAIN_DATA_TYPE > ::value))
     {
         std::cerr << "\033[1;33mWarning:\033[0m Data type of train data and test data is not same\n";
         std::cerr << "Executing the process\n";
     }
-    std::cerr << "\033[95mInformation:\033[0m In case of tie between multiple classes, random class will be selected as the target class\n";
-
-    MinHeapPriorityQueue distances = calculateDistances(testData);
-    this->targetClassName = findClass(distances);
 }
 
 template <typename TRAIN_DATA_TYPE, typename TARGET_DATA_TYPE>
@@ -142,6 +167,12 @@ void KNN_CLASSIFIER<TRAIN_DATA_TYPE, TARGET_DATA_TYPE>::fitTestDataDimensions()
         for (int i = row.size(); i < maxRowSize; i++)
             row.push_back(0);
     }
+}
+
+template <typename TRAIN_DATA_TYPE, typename TARGET_DATA_TYPE>
+void KNN_CLASSIFIER<TRAIN_DATA_TYPE, TARGET_DATA_TYPE>::printWarnings()
+{
+    std::cerr << "\033[95mInformation:\033[0m In case of tie between multiple classes, random class will be selected as the target class\n";
 }
 
 #endif
